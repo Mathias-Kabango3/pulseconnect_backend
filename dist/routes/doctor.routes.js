@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const doctor_controller_1 = require("../controllers/doctor.controller");
+const auth_middleware_1 = require("../middleware/auth.middleware");
+const admin_middleware_1 = __importDefault(require("../middleware/admin.middleware"));
+const multerConfig_1 = __importDefault(require("../lib/multerConfig"));
+const doctorRouter = express_1.default.Router();
+doctorRouter.post('/register', multerConfig_1.default.single('image'), auth_middleware_1.authenticateToken, doctor_controller_1.createDoctor);
+doctorRouter.get('/hospital', auth_middleware_1.authenticateToken, doctor_controller_1.getDoctorsByHospital);
+doctorRouter.put('/:id', auth_middleware_1.authenticateToken, admin_middleware_1.default, doctor_controller_1.updateDoctor);
+doctorRouter.delete('/:id', auth_middleware_1.authenticateToken, admin_middleware_1.default, doctor_controller_1.deleteDoctor);
+doctorRouter.get('/:id', auth_middleware_1.authenticateToken, doctor_controller_1.getDoctorById);
+doctorRouter.get('/city/:city', auth_middleware_1.authenticateToken, doctor_controller_1.getDoctorsByCity);
+doctorRouter.get('/appointments/:id', auth_middleware_1.authenticateToken, doctor_controller_1.getDoctorsAppointments);
+doctorRouter.get('/specialty/:specialty', auth_middleware_1.authenticateToken, doctor_controller_1.getDoctorsBySpecialty);
+doctorRouter.get('/', auth_middleware_1.authenticateToken, doctor_controller_1.getAllDoctors);
+exports.default = doctorRouter;
