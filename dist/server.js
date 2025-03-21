@@ -43,7 +43,7 @@ const morgan_1 = __importDefault(require('morgan'));
 const dotenv_1 = __importDefault(require('dotenv'));
 require('express-async-errors');
 const cors_1 = __importDefault(require('cors'));
-const prisma_1 = __importDefault(require('./src/lib/prisma'));
+const prisma_1 = __importDefault(require('./lib/prisma'));
 const logger_1 = __importDefault(require('./lib/logger'));
 dotenv_1.default.config();
 const patient_routes_1 = __importDefault(require('./routes/patient.routes'));
