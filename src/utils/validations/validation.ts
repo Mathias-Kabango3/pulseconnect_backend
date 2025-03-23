@@ -74,8 +74,8 @@ export const doctorRegistrationValidation = z.object({
   verificationDocument: z.string().optional(),
   phoneNumber: z.string(),
   speciality: z.string(),
-  availableFrom: z.string().optional(),
-  availableTo: z.string().optional(),
+  availableFrom: z.string(),
+  availableTo: z.string(),
   licenseNumber: z.string(),
   address: z
     .object({

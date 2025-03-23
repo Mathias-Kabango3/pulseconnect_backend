@@ -72,8 +72,8 @@ exports.doctorRegistrationValidation = zod_1.z.object({
     verificationDocument: zod_1.z.string().optional(),
     phoneNumber: zod_1.z.string(),
     speciality: zod_1.z.string(),
-    availableFrom: zod_1.z.string().optional(),
-    availableTo: zod_1.z.string().optional(),
+    availableFrom: zod_1.z.string(),
+    availableTo: zod_1.z.string(),
     licenseNumber: zod_1.z.string(),
     address: zod_1.z
         .object({
