@@ -13,9 +13,9 @@ const appointmentsRouter = express.Router();
 appointmentsRouter.post('/book', authenticateToken, bookAppointment);
 appointmentsRouter.get('/slots', authenticateToken, getAvailableSlots);
 
-appointmentsRouter.put('/update/:id', authenticateToken, updateAppointment);
+appointmentsRouter.put('/:id', authenticateToken, updateAppointment);
 
-appointmentsRouter.delete('/delete/:id', authenticateToken, deleteAppointment);
+appointmentsRouter.delete('/:id', authenticateToken, deleteAppointment);
 
 appointmentsRouter.get(
   '/my-appointments/:userId',
