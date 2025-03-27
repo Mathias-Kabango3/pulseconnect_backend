@@ -201,6 +201,7 @@ const myAppointments = (req, res) => __awaiter(void 0, void 0, void 0, function*
             patientId: patient.id,
         },
         select: {
+            id: true,
             startTime: true,
             endTime: true,
             status: true,

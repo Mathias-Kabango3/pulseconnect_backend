@@ -245,6 +245,7 @@ export const myAppointments = async (
       patientId: patient.id,
     },
     select: {
+      id: true,
       startTime: true,
       endTime: true,
       status: true,
