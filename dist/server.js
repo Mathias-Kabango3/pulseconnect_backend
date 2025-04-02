@@ -53,6 +53,24 @@ process.on('uncaughtException', (error) => {
     logger_1.default.error(`Uncaught Exception: ${error}`);
     process.exit(1);
 });
+const pg_1 = require('pg');
+const pool = new pg_1.Pool({
+  connectionString: process.env.DATABASE_URL,
+});
+function keepAlive() {
+  return __awaiter(this, void 0, void 0, function* () {
+    try {
+      const client = yield pool.connect();
+      yield client.query('SELECT 1'); // Simple query to keep the database awake
+      client.release();
+      console.log('Keep-alive query executed');
+    } catch (error) {
+      console.error('Error in keep-alive query:', error);
+    }
+  });
+}
+// Run every 10 minutes
+setInterval(keepAlive, 10 * 60 * 1000);
 const startServer = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield prisma_1.default.$connect();
