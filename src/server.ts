@@ -1,10 +1,8 @@
 import express from 'express';
-import morgan from 'morgan';
 import dotenv from 'dotenv';
 import 'express-async-errors';
 import cors from 'cors';
 import prisma from '../src/lib/prisma';
-import logger from './lib/logger';
 dotenv.config();
 
 import patient from './routes/patient.routes';
@@ -18,15 +16,9 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 app.use(express.json());
-app.use(
-  cors({
-    origin: 'https://pulseconnect-seven.vercel.app/',
-    allowedHeaders: ['Authorization', 'Content-Type'],
-    credentials: true,
-  })
-);
+app.use(cors({ origin: "https://pulseconnect-seven.vercel.app", credentials: true }));
 app.use(express.urlencoded({ extended: true }));
-app.use(morgan('tiny'));
+
 
 app.use('/api/v1/patient', patient);
 app.use('/api/v1/hospital', hospitalRouter);
@@ -42,11 +34,11 @@ app.use((req, res) => {
 });
 app.use(errorHandler);
 process.on('unhandledRejection', (reason, promise) => {
-  logger.error(`Unhandled Rejection at: ${promise}, reason: ${reason}`);
+  console.log(reason, promise);
 });
 
 process.on('uncaughtException', (error) => {
-  logger.error(`Uncaught Exception: ${error}`);
+  console.error('Uncaught error:', error);
   process.exit(1);
 });
 
