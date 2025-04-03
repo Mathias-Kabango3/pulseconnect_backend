@@ -19,7 +19,11 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 app.use(express.json());
 app.use(
-  cors({ origin: '*', allowedHeaders: ['Authorization', 'Content-Type'] })
+  cors({
+    origin: 'https://pulseconnect-seven.vercel.app/',
+    allowedHeaders: ['Authorization', 'Content-Type'],
+    credentials: true,
+  })
 );
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('tiny'));
@@ -45,25 +49,7 @@ process.on('uncaughtException', (error) => {
   logger.error(`Uncaught Exception: ${error}`);
   process.exit(1);
 });
-import { Pool } from 'pg';
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
-
-async function keepAlive() {
-  try {
-    const client = await pool.connect();
-    await client.query('SELECT 1'); // Simple query to keep the database awake
-    client.release();
-    console.log('Keep-alive query executed');
-  } catch (error) {
-    console.error('Error in keep-alive query:', error);
-  }
-}
-
-// Run every 10 minutes
-setInterval(keepAlive, 10 * 60 * 1000);
 const startServer = async () => {
   try {
     await prisma.$connect();

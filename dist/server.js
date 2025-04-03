@@ -30,7 +30,13 @@ const errors_1 = __importDefault(require("./middleware/errors"));
 const PORT = process.env.PORT || 3001;
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-app.use((0, cors_1.default)({ origin: '*', allowedHeaders: ['Authorization', 'Content-Type'] }));
+app.use(
+  (0, cors_1.default)({
+    origin: 'https://pulseconnect-seven.vercel.app/',
+    allowedHeaders: ['Authorization', 'Content-Type'],
+    credentials: true,
+  })
+);
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, morgan_1.default)('tiny'));
 app.use('/api/v1/patient', patient_routes_1.default);
